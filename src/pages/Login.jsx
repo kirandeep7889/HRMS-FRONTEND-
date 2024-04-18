@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { login } from '../services/operations/authAPI';
 
 
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
+        data.navigate = navigate;
         console.log(data);
+        dispatch(login(data));
     };
 
     return (
@@ -22,7 +28,7 @@ const Login = () => {
             <h1 className='font-bold'>Admin Signup Portal</h1>
         </div>
         <div className=' w-full flex justify-center items-center'>
-            <div className="w-full rounded-lg shadow bg-grays-300 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full rounded-lg shadow bg-pure-greys-25 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
                     <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-richblack-900">
                         Sign in to your account
